@@ -1,4 +1,4 @@
-namespace VkRadio.Diet.Mvc.Models
+namespace VkRadio.Diet.Mvc.ViewModels
 {
     public class ErrorViewModel
     {

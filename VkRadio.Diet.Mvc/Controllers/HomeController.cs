@@ -1,16 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using VkRadio.Diet.Mvc.Models;
+using VkRadio.Diet.Mvc.ViewModels;
 
 namespace VkRadio.Diet.Mvc.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
         }
 
         public IActionResult Index()
