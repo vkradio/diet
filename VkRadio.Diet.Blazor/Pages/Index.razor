@@ -1,0 +1,66 @@
+﻿@page "/"
+
+@inject IMenuService menuService
+@inject IOrderService orderService
+
+@if (State.Menu.Pizzas.Any())
+{
+    <!-- Menu -->
+
+    <PizzaList
+        Title="Our Selection of Pizzas"
+        Items="State.Menu.Pizzas"
+        ButtonTitle="Order"
+        ButtonClass="btn btn-success pl-4 pr-4"
+        Selected="AddToBasket"
+    />
+
+    <!-- Basket -->
+
+    <ShoppingBasket
+        Orders="State.Basket.Orders"
+        GetPizzaFromId="State.Menu.GetPizza"
+        Selected="RemoveFromBasket"
+    />
+
+    <!-- Customer entry -->
+
+    <CustomerEntry
+        Title="Please enter your details below"
+        @bind-Customer="State.Basket.Customer"
+        ButtonTitle="Checkout"
+        ButtonClass="mx-auto w-25 btn btn-success"
+        ValidSubmit="PlaceOrder"
+    />
+}
+else
+{
+    <div class="mx-auto text-center mb-3 mt-3">
+        <div class="spinner-border text-danger" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+}
+
+
+<pre>@State.ToJson()</pre>
+
+
+@code {
+    private State State { get; } = new();
+
+    private void AddToBasket(Pizza pizza) => State.Basket.Add(pizza.Id);
+
+    private void RemoveFromBasket(int pos) => State.Basket.RemoveAt(pos);
+
+    private async Task PlaceOrder() => await orderService.PlaceOrder(State.Basket);
+
+    protected override async Task OnInitializedAsync()
+    {
+        var menu = await menuService.GetMenu();
+
+        menu
+            .Pizzas
+            .ForEach(x => State.Menu.Add(x));
+    }
+}

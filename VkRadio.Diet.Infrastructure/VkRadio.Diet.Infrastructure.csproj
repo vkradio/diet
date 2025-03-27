@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VkRadio.Diet.Model\VkRadio.Diet.Model.csproj" />
+    <ProjectReference Include="..\VkRadio.Diet.Core\VkRadio.Diet.Core.csproj" />
   </ItemGroup>
 
 </Project>
